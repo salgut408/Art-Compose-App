@@ -1,5 +1,6 @@
 package com.sgut.android.artcomposeapp.artworklists
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,16 +16,20 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.sgut.android.artcomposeapp.data.models.ArtworkModel
 
 @Composable
@@ -120,17 +125,32 @@ fun ArtworkEntry(
                 )
             }
     ) {
+        Column() {
+            val painter = rememberAsyncImagePainter(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(entry.getOtherImgUrl())
+                    .size(125)
+                    .build()
+            )
+            Image(painter = painter,
+                contentDescription = entry.title,
+                modifier = Modifier
+                    .size(120.dp)
+                    .align(CenterHorizontally)
+            )
+
+        }
         entry.artistDisplay?.let {
             Text(
                 text = it,
-                fontSize = 20.sp,
+                fontSize = 15.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
             entry.mediumDisplay?.let { it1 ->
                 Text(
                     text = it1,
-                    fontSize = 20.sp,
+                    fontSize = 15.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
