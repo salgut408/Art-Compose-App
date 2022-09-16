@@ -142,32 +142,33 @@ fun ArtworkEntry(
                 dominantColor=color
             }  }
 
+            entry.title?.let {
+                Text(
+                    text = it,
+                    fontSize = 15.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp)
+                )
 
             Image(painter = painter,
                 contentDescription = entry.title,
                 modifier = Modifier
-                    .size(120.dp)
+                    .size(200.dp)
                     .align(CenterHorizontally)
             )
+                entry.artistDisplay?.let { it1 ->
+                    Text(
+                        text = it1,
+                        fontSize = 15.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
 
         }
-        entry.artistDisplay?.let {
-            Text(
-                text = it,
-                fontSize = 15.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-            entry.mediumDisplay?.let { it1 ->
-                Text(
-                    text = it1,
-                    fontSize = 15.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-        }
-        
     }
 }
 
@@ -180,7 +181,8 @@ fun ArtworkRow(
 ) {
     Column() {
         Row() {
-            ArtworkEntry(entry = entries[rowIndex], 
+            ArtworkEntry(
+                entry = entries[rowIndex],
                 navController = navController,
             modifier = Modifier.weight(1f)
             )
@@ -196,9 +198,7 @@ fun ArtworkRow(
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-
     }
-    
 }
 
 @Composable
