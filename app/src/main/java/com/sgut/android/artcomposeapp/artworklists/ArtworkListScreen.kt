@@ -106,6 +106,10 @@ fun ArtworkEntry(
     modifier: Modifier = Modifier,
     viewModel: ArtworkListScreenViewModel = hiltViewModel(),
 ) {
+    val defaultDominantColor = MaterialTheme.colors.surface
+    var dominantColor by remember {
+        mutableStateOf(defaultDominantColor)
+    }
     Box(
         contentAlignment = Center, 
         modifier = modifier
@@ -114,8 +118,8 @@ fun ArtworkEntry(
             .background(
                 Brush.verticalGradient(
                     listOf(
-                        Color.Blue,
-                        Color.Cyan,
+                        dominantColor,
+                        defaultDominantColor,
                     )
                 )
             )
@@ -132,6 +136,13 @@ fun ArtworkEntry(
                     .size(125)
                     .build()
             )
+
+           var pic = entry.getOtherImgUrl()
+            pic.let { viewModel.fetchColors(pic, LocalContext.current,) {color->
+                dominantColor=color
+            }  }
+
+
             Image(painter = painter,
                 contentDescription = entry.title,
                 modifier = Modifier
