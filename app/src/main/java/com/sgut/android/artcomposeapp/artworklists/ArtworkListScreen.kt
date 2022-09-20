@@ -48,6 +48,7 @@ fun ArtworkListScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
+
             ) {
 //                viewModel.searchList
             }
