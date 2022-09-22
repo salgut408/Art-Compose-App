@@ -40,6 +40,7 @@ class ArtworkListScreenViewModel @Inject constructor(
             when (result) {
                 is Resource.Success -> {
                     //TODO move to repository
+
                     val artEntries = result.data?.artworkList?.map { entry ->
                         ArtworkModel(
                             entry.id,
